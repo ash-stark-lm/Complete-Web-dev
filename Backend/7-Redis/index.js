@@ -7,13 +7,15 @@ import authRouter from './Router/auth.js'
 import userRouter from './Router/user.js'
 import redisClient from './config/redis.js'
 import rateLimiter from './middleware/rateLimiter.js'
+import slidingRateLimiter from './middleware/slidingWindowRateLimiter.js'
 
 const app = express()
 const url = process.env.DB_CONNECT_KEY
 app.use(express.json())
 app.use(cookieParser())
 
-app.use(rateLimiter)
+//app.use(rateLimiter)
+app.use(slidingRateLimiter)
 
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
